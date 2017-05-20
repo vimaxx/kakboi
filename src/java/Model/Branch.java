@@ -10,10 +10,11 @@ package Model;
  * @author Deni Barasena
  */
 public class Branch {
-    String locationCode;
-    float lat;
-    float lon;
-    String branchName;
-    Employee branchManager;
+    private int branchID;
+    private Region region;
+    private String branchName;
+    private float latitude;
+    private float longitude;
+    private Employee branchManager;
     
 }

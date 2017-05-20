@@ -10,5 +10,7 @@ package Model;
  * @author Deni Barasena
  */
 public class Customer {
-    
+    private int customerID;
+    private String customerName;
+    private String email;
 }

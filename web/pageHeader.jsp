@@ -10,18 +10,25 @@
 <div class="page-header page-header-default">
     <div class="page-header-content">
         <div class="page-title">
-            <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold">Starters</span> - Fixed Layout</h4>
+            <h4><i class="icon-arrow-left52 position-left"></i> <span class="text-semibold"><%=p.getTitle()%></span></h4>
         </div>
     </div>
 
     <div class="breadcrumb-line">
+        
         <ul class="breadcrumb">
-            <li><a href="index.html"><i class="icon-home2 position-left"></i> Home</a></li>
-            <li><a href="layout_fixed.html">Starters</a></li>
-            <li class="active">Fixed layout</li>
+        <%
+        for( int i = 0; i < p.getBreadCrumbs().size(); i++ ) {
+            Page b = p.getBreadCrumbs().get(i);
+        %>
+            <li><a href="<%=b.getJspLink()%>"><i class="icon-home2 position-left"></i> <%=b.getTitle()%></a></li>
+        <%
+        }
+        %>
+            <li class="active"><%=p.getTitle()%></li>
         </ul>
 
-        <ul class="breadcrumb-elements">
+<!--        <ul class="breadcrumb-elements">
             <li><a href="#"><i class="icon-comment-discussion position-left"></i> Link</a></li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -37,7 +44,7 @@
                     <li class="divider"></li>
                     <li><a href="#"><i class="icon-gear"></i> All settings</a></li>
                 </ul>
-            </li>
+            </li>-->
         </ul>
     </div>
 </div>

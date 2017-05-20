@@ -5,10 +5,20 @@
  */
 package Model;
 
+import java.util.Map;
+
 /**
  *
  * @author Deni Barasena
  */
 public class Product {
+    private int productID;
+    private String productName;
+    private String productDetails;
+    private float productCost;      //Supply Cost
     
+    //Transient Data;
+    private int totalStock;              
+    private Map<Branch, Integer> stockInBranches;   
+    private Map<Branch, Float> costInBranches;   
 }

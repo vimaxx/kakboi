@@ -23,7 +23,8 @@ public class DBAdmin {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/kakboi";
     static final String DB_USER = "root";
-    static final String DB_PASS = ""; // Local machine DB Pass
+//    static final String DB_PASS = ""; // Local machine DB Pass
+    static final String DB_PASS = "uvUqdU9n"; // DENI GCP machine DB Pass
 
     private static final String LOGIN_USER = "SELECT * FROM `user` WHERE username = ? AND password = SHA1(?)";
 
@@ -31,7 +32,6 @@ public class DBAdmin {
         try {
             return Query.create(LOGIN_USER, User.class).setString(username).setString(password).query();
         } catch (SQLException ex) {
-//            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
             System.out.println(ex.getMessage());
         }
         return null;
@@ -194,6 +194,14 @@ class Query<T extends Model> extends Statement {
             Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
+    }
+
+    public static Statement create(String query) throws SQLException {
+        return new Statement(query);
+    }
+
+    public static Statement create(Connection connection, String query) throws SQLException {
+        return new Statement(connection, query);
     }
 
     public static <E extends Model> Query<E> create(String query, Class<E> typeClass) throws SQLException {

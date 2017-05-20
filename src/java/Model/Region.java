@@ -5,16 +5,17 @@
  */
 package Model;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Deni Barasena
  */
-public class Applicants {
-    int applicantID;
-    String applicantName;
-    String positionName;
-    String resumeDescription;
-    Branch branch;
+public class Region {
+    private int regionID;
+    private String regionCode;
+    private String regionName;
+    private int regionPopulation;
     
-    
+    private ArrayList<Branch> branches;
 }

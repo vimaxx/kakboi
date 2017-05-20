@@ -15,7 +15,7 @@
         <div class="sidebar-user">
             <div class="category-content">
                 <div class="media">
-                    <a href="logout" class="media-left"><img src="assets/images/image.png" class="img-circle img-sm" alt=""></a>
+                    <a href="logout" class="media-left"><img src="resource/image.png" class="img-circle img-sm" alt=""></a>
                     <div class="media-body">
                         <span class="media-heading text-semibold"><%=loggedUser.getFullname()%></span>
                         <div class="text-size-mini text-muted">

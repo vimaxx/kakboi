@@ -5,13 +5,18 @@
  */
 package Model;
 
+import java.sql.Timestamp;
+
 /**
  *
  * @author Deni Barasena
  */
 public class Employee {
     private int employeeID;
-    private String name;
+    private String employeeName;
+    private String positionName;
     private String email;
     private String contacts;
+    private Timestamp employedSince;
+    private Branch branch;    
 }

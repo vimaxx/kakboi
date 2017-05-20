@@ -7,7 +7,7 @@
 %>
 
 <div class="footer text-muted">
-    &copy; 2015. <a href="#">Limitless Web App Kit</a> by <a href="http://themeforest.net/user/Kopyov" target="_blank">Eugene Kopyov</a>
+    &copy; 2017. <a href="#">Kakboi</a> by <a href="http://zeetech.ml" target="_blank">IT Hertz</a>
 </div>
 
 </div><!-- /content -->
