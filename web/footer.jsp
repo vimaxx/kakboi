@@ -15,11 +15,6 @@
 </div><!-- /page content -->
 </div><!-- /page container -->
 
-<!-- Core JS files -->
-<script type="text/javascript" src="js/jquery.min.js"></script>
-<script type="text/javascript" src="js/bootstrap.min.js"></script>
-<!-- /core JS files -->
-
 <!-- Theme JS files -->
 <script type="text/javascript" src="js/nicescroll.min.js"></script>
 

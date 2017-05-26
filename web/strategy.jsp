@@ -13,6 +13,15 @@
 <jsp:include page="header.jsp"/>
 
 <!-- Simple panel -->
+<div class="row">
+    <div class="col-md-3">
+        
+    </div>
+    <div class="col-md-9">
+        
+    </div>
+</div>
+
 <div class="panel panel-flat">
     <div class="panel-heading">
         <h5 class="panel-title">Simple panel</h5>
@@ -212,5 +221,14 @@
     </div>
 </div>
 <!-- /grid -->
+
+
+<script type="text/javascript" src="js/d3.min.js"></script>
+<script type="text/javascript" src="js/d3_tooltip.js"></script>
+<script type="text/javascript" src="js/page_strategy.js"></script>
+
+<script>
+    
+</script>
 
 <jsp:include page="footer.jsp"/>

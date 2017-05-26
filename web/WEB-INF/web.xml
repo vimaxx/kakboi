@@ -36,6 +36,14 @@
         <servlet-name>TransactionsServlet</servlet-name>
         <servlet-class>Servlet.TransactionsServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>GetNotificationServlet</servlet-name>
+        <servlet-class>Servlet.GetNotificationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>GetIncomeServlet</servlet-name>
+        <servlet-class>Servlet.GetIncomeServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>MainServlet</servlet-name>
         <url-pattern>/main</url-pattern>
@@ -71,6 +79,14 @@
     <servlet-mapping>
         <servlet-name>TransactionsServlet</servlet-name>
         <url-pattern>/transactions</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetNotificationServlet</servlet-name>
+        <url-pattern>/GetNotificationServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>GetIncomeServlet</servlet-name>
+        <url-pattern>/GetIncomeServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

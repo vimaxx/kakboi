@@ -5,9 +5,12 @@
  */
 package Servlet;
 
+import Model.Branch;
+import Model.DBAdmin;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +40,9 @@ public class BranchesServlet extends HttpServlet {
             response.sendRedirect("login");
             return;
         }
+        
+        ArrayList<Branch> branches = DBAdmin.getAllBranches();
+        request.setAttribute("branches", branches);
         
         request.getRequestDispatcher("branches.jsp").forward(request, response);
     }

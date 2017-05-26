@@ -28,6 +28,12 @@
         <%=p.printExtraCSS()%>
         <%=p.printExtraHead()%>
 
+
+        <!-- Core JS files -->
+        <script type="text/javascript" src="js/jquery.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <!-- /core JS files -->
+
     </head>
 
     <body class="fixed-sidebar-space">

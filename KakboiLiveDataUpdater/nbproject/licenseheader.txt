@@ -1,0 +1,7 @@
+<#if licenseFirst??>
+${licenseFirst}
+</#if>
+${licensePrefix}1 copy = 1 indomie
+<#if licenseLast??>
+${licenseLast}
+</#if>

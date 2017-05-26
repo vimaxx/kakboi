@@ -5,6 +5,7 @@
  */
 package Model;
 
+import Model.Query.PQuery;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -23,10 +24,12 @@ public class DBAdmin {
 
     static final String DB_URL = "jdbc:mysql://localhost:3306/kakboi";
     static final String DB_USER = "root";
-//    static final String DB_PASS = ""; // Local machine DB Pass
-    static final String DB_PASS = "uvUqdU9n"; // DENI GCP machine DB Pass
+    static final String DB_PASS = ""; // Local machine DB Pass
+//    static final String DB_PASS = "uvUqdU9n"; // DENI GCP machine DB Pass
 
-    private static final String LOGIN_USER = "SELECT * FROM `user` WHERE username = ? AND password = SHA1(?)";
+    private static final String LOGIN_USER = "SELECT * FROM `user` WHERE fullname = ? AND password = SHA1(?)";
+    private static final String ADD_USER = "INSERT INTO `user` (fullname, email, user_type, password) VALUES(?, ?, ?, ?)";
+    private static final String TRUNCATE_TABLE = "TRUNCATE TABLE ?";
 
     public static User login(String username, String password) {
         try {
@@ -36,7 +39,61 @@ public class DBAdmin {
         }
         return null;
     }
+
+    public static boolean addUser(User user) {
+        try {
+            return Query.create(ADD_USER)
+                    .setString(user.getFullname())
+                    .setString(user.getEmail())
+                    .setString(user.getUserType())
+                    .setString(user.getPassword())
+                    .executeStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
+
+    public static boolean clearDatabase() {
+        String[] tableNames = {
+            "user", "applicant", "branch", "branch_plan", "customer",
+            "employee", "goal", "plan", "product", "product_branch", "region",
+            "region", "strategy", "strategy_plan", "transaction", "transaction_data"
+        };
+
+        try {
+            try (Connection con = Query.create("").getConnection()) {
+                for (String name : tableNames) {
+                    Query.create(con, TRUNCATE_TABLE).setString(name).executeStatement();
+                }
+            }
+            return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return false;
+    }
+
+    public static ArrayList<Branch> getAllBranches() {
+        try {
+            return Query.create("SELECT * FROM branch", Branch.class).queryList();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ArrayList<>();
+    }
+
+    public static ArrayList<Goal> getAllGoals() {
+        try {
+            return Query.create("SELECT * FROM goal", Goal.class).queryList();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ArrayList<>();
+    }
 }
+
 
 class Statement {
 

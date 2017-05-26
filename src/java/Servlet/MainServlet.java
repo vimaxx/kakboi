@@ -5,9 +5,13 @@
  */
 package Servlet;
 
+import Model.Branch;
+import Model.DBAdmin;
+import Model.Goal;
 import Model.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,10 +42,22 @@ public class MainServlet extends HttpServlet {
         }
         
         if("ceo".equalsIgnoreCase(loggedUser.getUserType())) {
+            ArrayList<Goal> goals = DBAdmin.getAllGoals();
+            ArrayList<Branch> branches = DBAdmin.getAllBranches();
+            
+            request.setAttribute("goals", goals);
+            request.setAttribute("branches", branches);
+            
+            request.setAttribute("monthlyRevenue", 6283);
+            request.setAttribute("weeklyRevenue", 1519);
+            request.setAttribute("averageRevenue", 213);
+            
             request.getRequestDispatcher("main.jsp").forward(request, response);
         } else if ("manager".equalsIgnoreCase(loggedUser.getUserType())) {
             request.getRequestDispatcher("main.jsp").forward(request, response);
         }
+        
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
