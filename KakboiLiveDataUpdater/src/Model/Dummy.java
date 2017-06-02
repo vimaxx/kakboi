@@ -49,43 +49,6 @@ public class Dummy {
     }
     
     public void reDB() {
-        DBAdmin.clearDatabase();
-        
-        for( User user : users ) {
-            DBAdmin.addUser(user);
-        }
-        for( Region region : regions ) {
-            DBAdmin.addRegion(region);
-        }
-        for( Branch branch : branches ) {
-            DBAdmin.addBranch(branch);
-            
-            
-            for( Employee employee : branch.getEmployees() ) {
-                DBAdmin.addEmployee(employee);
-            }
-            for( Applicants applicant : branch.getApplicants()) {
-                DBAdmin.addApplicant(applicant);
-            }
-        }
-        for( Customer customer : customers ) {
-            DBAdmin.addCustomer(customer);
-        }
-        for( Transaction transaction : transactions ) {
-            DBAdmin.addTransaction(transaction);
-        }
-        
-        for( Goal goal : goals ) {
-            DBAdmin.addGoal(goal);
-            
-            for( Strategy strat : goal.getStrategies() ) {
-                DBAdmin.addStrategy(strat);
-                
-                for( Plan plan : strat.getPlans() ) {
-                    DBAdmin.addPlan(plan);
-                }
-            }
-        }
         
     }
 }

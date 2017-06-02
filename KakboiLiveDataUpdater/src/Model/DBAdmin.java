@@ -22,10 +22,10 @@ import java.util.logging.Logger;
  */
 public class DBAdmin {
 
-    static final String DB_URL = "jdbc:mysql://localhost:3306/kakboi";
+    static final String DB_URL = "jdbc:mysql://localhost:8806/kakboi";
     static final String DB_USER = "root";
-    static final String DB_PASS = ""; // Local machine DB Pass
-//    static final String DB_PASS = "uvUqdU9n"; // DENI GCP machine DB Pass
+//    static final String DB_PASS = ""; // Local machine DB Pass
+    static final String DB_PASS = "uvUqdU9n"; // DENI GCP machine DB Pass
 
     private static final String LOGIN_USER = "SELECT * FROM `user` WHERE fullname = ? AND password = SHA1(?)";
     
@@ -65,73 +65,6 @@ public class DBAdmin {
         return false;
     }
     
-    public static boolean addRegion(Region region) {
-        try {
-            return Query.create(ADD_REGION)
-                    .setString(region.getRegionCode())
-                    .setString(region.getRegionName())
-                    .setInt(region.getRegionPopulation())
-                    .executeStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-    public static boolean addBranch(Branch branch) {
-        try {
-            return Query.create(ADD_BRANCH)
-                    .setInt(branch.getRegion().getRegionID())
-                    .setString(branch.getBranchName())
-                    .setFloat(branch.getLatitude())
-                    .setFloat(branch.getLongitude())
-                    .setInt(branch.getBranchManager().getEmployeeID())
-                    .executeStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-    public static boolean addEmployee(Employee employee) {
-        try {
-            return Query.create(ADD_EMPLOYEE)
-                    .setInt(employee.get())
-                    .setString(branch.getBranchName())
-                    .setFloat(branch.getLatitude())
-                    .setFloat(branch.getLongitude())
-                    .setInt(branch.getBranchManager().getEmployeeID())
-                    .executeStatement();
-        } catch (SQLException ex) {
-            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return false;
-    }
-
-    public static void addApplicant(Applicants applicant) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static void addCustomer(Customer customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static void addTransaction(Transaction transaction) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static void addGoal(Goal goal) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static void addStrategy(Strategy strat) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    public static void addPlan(Plan plan) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-    
     
     public static boolean clearDatabase() {
         String[] tableNames = {
@@ -152,6 +85,17 @@ public class DBAdmin {
         }
 
         return false;
+    }
+
+    public static void addNotification(Notification n) {
+        try {
+            Query.create("INSERT INTO notification (`notification_content`, `notification_icon`, `time`) VALUES(?, ?, CURRENT_TIMESTAMP)")
+                    .setString(n.getNotificationContent())
+                    .setString(n.getNotificationIcon())
+                    .executeStatement();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
 

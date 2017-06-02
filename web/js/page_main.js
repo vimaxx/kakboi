@@ -163,7 +163,26 @@ function initIncomeGraph(data) {
     // Pull out values
     data.forEach(function (d) {
         d.date = ig.format.parse(d.date);
-        d.value = +d.value;
+        d.value = +d.value * 7;
+        
+        if( d.key === "Amazon ads") {
+            d.key = "Kakboi Online";
+        }
+        if( d.key === "Google search") {
+            d.key = "Kakboi Wollongong";
+        }
+        if( d.key === "Facebook ads") {
+            d.key = "Kakboi Adelaide";
+        }
+        if( d.key === "Twitter ads") {
+            d.key = "Kakboi Sydney";
+        }
+        if( d.key === "Dribbble ads") {
+            d.key = "Kakboi Melbourne";
+        }
+        if( d.key === "Youtube videos") {
+            d.key = "Kakboi Brisbane";
+        }
     });
 
 
@@ -375,7 +394,7 @@ function initIncomeGraph(data) {
                     ig.tooltip.html(
                             "<ul class='list-unstyled mb-5'>" +
                             "<li>" + "<div class='text-size-base mt-5 mb-5'><i class='icon-circle-left2 position-left'></i>" + d.key + "</div>" + "</li>" +
-                            "<li>" + "Visits: &nbsp;" + "<span class='text-semibold pull-right'>" + ig.pro + "</span>" + "</li>" +
+                            "<li>" + "Revenue: &nbsp;" + "<span class='text-semibold pull-right'>$" + ig.pro + "</span>" + "</li>" +
                             "<li>" + "Time: &nbsp; " + "<span class='text-semibold pull-right'>" + ig.formatDate(d.values[ig.mousedate].date) + "</span>" + "</li>" +
                             "</ul>"
                             )
@@ -659,15 +678,9 @@ function branchProductivityBar(element, height, data, name) {
 // Initialize chart
 
 // Chart setup
-function roundedProgressMultiple(element, size) {
+function goalGraph(element, size, data) {
 
     // Add random data
-    var data = [
-        {index: 0, name: 'Memory', percentage: 0},
-        {index: 1, name: 'CPU', percentage: 0},
-        {index: 2, name: 'Sessions', percentage: 0},
-        {index: 3, name: 'aaSessions', percentage: 0}
-    ];
 
     // Main variables
     var d3Container = d3.select(element),
@@ -793,7 +806,6 @@ function roundedProgressMultiple(element, size) {
                 .data(data)
                 .each(function (d) {
                     d.previousValue = this._value;
-                    d.percentage = Math.round(Math.random() * 100) + 1;
                 });
 
         // Foreground arcs
@@ -804,8 +816,6 @@ function roundedProgressMultiple(element, size) {
                 .ease("easeInOut")
                 .attrTween("d", arcTween);
 
-        // Update every 4 seconds
-        setTimeout(update, 4000);
     }
 
     // Arc animation
@@ -1262,17 +1272,16 @@ function customerSatisfactionLine(element, height) {
 
 
 function updateNotifications() {
-    
     $.ajax({url: "GetNotificationServlet", success: function(result){
-        var $dom = $("#notificationList");
-        
         var notifs = JSON.parse(result);
         
         var res = "";
         
         var counter = 0;
-        for( var k in notifs ) {
-            var n = notifs[k];
+        
+        for( var k in notifs.data ) {
+            var n = notifs.data[k];
+            
             res += "" +
 "                    <li class=\"media\">\n" +
 "                        <div class=\"media-left\">\n" +
@@ -1295,18 +1304,17 @@ function updateNotifications() {
             }
         }
 
-        $dom.html(res);
-        $("#div1").html(result);
+        $("#notificationList").html(res);
     }});
 }
 
-function updateIncome() {
-    
+function updateIncome() {   
     $.ajax({url: "GetIncomeServlet", success: function(result){
         var incomes = JSON.parse(result);
         
         for( var k in incomes ) {
             var n = incomes[k];
+            
             
         }
     }});

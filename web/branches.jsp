@@ -21,7 +21,7 @@
 <jsp:include page="header.jsp"/>
 
 <div class="row">
-    <div class="col-md-8">
+    <div id="mapCol" class="col-md-8">
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Branches</h5>
@@ -38,20 +38,20 @@
             for (int i = 0; i < branches.size(); i++) {
                 Branch b = branches.get(i);
         %>
-        <div class="panel panel-flat" id="branchDetail<%=b.getBranchID()%>">
+        <div class="panel panel-flat hidden" id="branchDetail<%=i%>">
             <div class="panel-heading">
                 <h5 class="panel-title"><%=b.getBranchName()%></h5>
             </div>
 
             <div class="panel-body">
-                <h6 class="text-semibold">Start your development with no hassle!</h6>
-                <p class="content-group">Common problem of templates is that all code is deeply integrated into the core. This limits your freedom in decreasing amount of code, i.e. it becomes pretty difficult to remove unnecessary code from the project. Limitless allows you to remove unnecessary and extra code easily just by removing the path to specific LESS file with component styling. All plugins and their options are also in separate files. Use only components you actually need!</p>
+                <h6 class="text-semibold">Branch Descriptions</h6>
+                <p class="content-group">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-                <h6 class="text-semibold">What is this?</h6>
-                <p class="content-group">Starter kit is a set of pages, useful for developers to start development process from scratch. Each layout includes base components only: layout, page kits, color system which is still optional, bootstrap files and bootstrap overrides. No extra CSS/JS files and markup. CSS files are compiled without any plugins or components. Starter kit was moved to a separate folder for better accessibility.</p>
+                <h6 class="text-semibold">More Information</h6>
+                <p class="content-group">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-                <h6 class="text-semibold">How does it work?</h6>
-                <p>You open one of the starter pages, add necessary plugins, uncomment paths to files in components.less file, compile new CSS. That's it. I'd also recommend to open one of main pages with functionality you need and copy all paths/JS code from there to your new page, it's just faster and easier.</p>
+                <h6 class="text-semibold">Eveb More Information</h6>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
             </div>
         </div>
 
@@ -62,12 +62,12 @@
 
 </div>
 
-<div id="branchContainer" class="container">
+<div id="branchContainer" class="container-fluid">
     <%
         for (int i = 0; i < branches.size(); i++) {
             Branch b = branches.get(i);
     %>
-    <div id='branchRow<%=b.getBranchID()%>' class="row">
+    <div id='branchRow<%=i%>' class="row hidden">
         <div class="panel panel-flat">
             <div class="panel-heading">
                 <h5 class="panel-title">Employees</h5>
@@ -119,5 +119,24 @@
 <script type="text/javascript" src="js/page_branches.js"></script>
 <script>
 
+    $(function () {
+        var data = [];
+
+    <%
+        for (int i = 0; i < branches.size(); i++) {
+            Branch b = branches.get(i);
+    %>
+        data.push({
+            latLng: [<%=b.getLatitude()%>, <%=b.getLongitude()%>],
+            name: '<%=b.getBranchName()%>'}
+        );
+    <%
+        }
+    %>
+
+
+        initMap(data);
+
+    });
 </script>
 <jsp:include page="footer.jsp"/>

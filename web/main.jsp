@@ -1,3 +1,4 @@
+<%@page import="Model.Strategy"%>
 <%@page import="Model.Branch"%>
 <%@page import="java.text.DecimalFormat"%>
 <%@page import="Model.Goal"%>
@@ -39,6 +40,7 @@
             if (!g.isOngoing()) {
                 continue;
             }
+
     %>
     <div class="col-md-3">
         <!-- Rounded progress - multiple -->
@@ -46,7 +48,7 @@
             <h6 class="text-semibold no-margin-bottom mt-5"><%=g.getGoalName()%></h6>
             <div class="text-size-small text-muted content-group-sm">Goal</div>
 
-            <div class="svg-center" id="rounded_progress_multiple"></div>
+            <div class="svg-center" id="goalGraph<%=i%>"></div>
         </div>
         <!-- /rounded progress - multiple -->
     </div>
@@ -108,155 +110,7 @@
             <div class="panel-body">
                 <div class="content-group-xs" id="bullets"></div>
 
-                <ul class="media-list" id="notifactionList">
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#" class="btn border-pink text-pink btn-flat btn-rounded btn-icon btn-xs"><i class="icon-statistics"></i></a>
-                        </div>
-
-                        <div class="media-body">
-                            Stats for July, 6: 1938 orders, $4220 revenue
-                            <div class="media-annotation">2 hours ago</div>
-                        </div>
-
-                        <div class="media-right media-middle">
-                            <ul class="icons-list">
-                                <li>
-                                    <a href="#"><i class="icon-arrow-right13"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#" class="btn border-success text-success btn-flat btn-rounded btn-icon btn-xs"><i class="icon-checkmark3"></i></a>
-                        </div>
-
-                        <div class="media-body">
-                            Invoices <a href="#">#4732</a> and <a href="#">#4734</a> have been paid
-                            <div class="media-annotation">Dec 18, 18:36</div>
-                        </div>
-
-                        <div class="media-right media-middle">
-                            <ul class="icons-list">
-                                <li>
-                                    <a href="#"><i class="icon-arrow-right13"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#" class="btn border-primary text-primary btn-flat btn-rounded btn-icon btn-xs"><i class="icon-alignment-unalign"></i></a>
-                        </div>
-
-                        <div class="media-body">
-                            Affiliate commission for June has been paid
-                            <div class="media-annotation">36 minutes ago</div>
-                        </div>
-
-                        <div class="media-right media-middle">
-                            <ul class="icons-list">
-                                <li>
-                                    <a href="#"><i class="icon-arrow-right13"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#" class="btn border-warning-400 text-warning-400 btn-flat btn-rounded btn-icon btn-xs"><i class="icon-spinner11"></i></a>
-                        </div>
-
-                        <div class="media-body">
-                            Order <a href="#">#37745</a> from July, 1st has been refunded
-                            <div class="media-annotation">4 minutes ago</div>
-                        </div>
-
-                        <div class="media-right media-middle">
-                            <ul class="icons-list">
-                                <li>
-                                    <a href="#"><i class="icon-arrow-right13"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#" class="btn border-teal-400 text-teal btn-flat btn-rounded btn-icon btn-xs"><i class="icon-redo2"></i></a>
-                        </div>
-
-                        <div class="media-body">
-                            Invoice <a href="#">#4769</a> has been sent to <a href="#">Robert Smith</a>
-                            <div class="media-annotation">Dec 12, 05:46</div>
-                        </div>
-
-                        <div class="media-right media-middle">
-                            <ul class="icons-list">
-                                <li>
-                                    <a href="#"><i class="icon-arrow-right13"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#" class="btn border-teal-400 text-teal btn-flat btn-rounded btn-icon btn-xs"><i class="icon-redo2"></i></a>
-                        </div>
-
-                        <div class="media-body">
-                            Invoice <a href="#">#4769</a> has been sent to <a href="#">Robert Smith</a>
-                            <div class="media-annotation">Dec 12, 05:46</div>
-                        </div>
-
-                        <div class="media-right media-middle">
-                            <ul class="icons-list">
-                                <li>
-                                    <a href="#"><i class="icon-arrow-right13"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#" class="btn border-teal-400 text-teal btn-flat btn-rounded btn-icon btn-xs"><i class="icon-redo2"></i></a>
-                        </div>
-
-                        <div class="media-body">
-                            Invoice <a href="#">#4769</a> has been sent to <a href="#">Robert Smith</a>
-                            <div class="media-annotation">Dec 12, 05:46</div>
-                        </div>
-
-                        <div class="media-right media-middle">
-                            <ul class="icons-list">
-                                <li>
-                                    <a href="#"><i class="icon-arrow-right13"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li class="media">
-                        <div class="media-left">
-                            <a href="#" class="btn border-teal-400 text-teal btn-flat btn-rounded btn-icon btn-xs"><i class="icon-redo2"></i></a>
-                        </div>
-
-                        <div class="media-body">
-                            Invoice <a href="#">#4769</a> has been sent to <a href="#">Robert Smith</a>
-                            <div class="media-annotation">Dec 12, 05:46</div>
-                        </div>
-
-                        <div class="media-right media-middle">
-                            <ul class="icons-list">
-                                <li>
-                                    <a href="#"><i class="icon-arrow-right13"></i></a>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
+                <ul class="media-list" id="notificationList">
                 </ul>
             </div>
         </div>
@@ -322,22 +176,52 @@
         var name = [];
 
     <%
-            for (int i = 0; i < branches.size(); i++) {
-                Branch b = branches.get(i);
+        for (int i = 0; i < branches.size(); i++) {
+            Branch b = branches.get(i);
     %>
         name.push("<%=b.getBranchName()%>");
-        data.push( random(60, 90) );
+        data.push(random(60, 90));
     <%
-            }
+        }
     %>
 
         branchProductivityBar('#branchProductivityGraph', 400, data, name);
 
+        var data2;
+    <%
+        for (int i = 0; i < goals.size(); i++) {
+            Goal g = goals.get(i);
+            if (!g.isOngoing()) {
+                continue;
+            }
+    %>
+        data2 = [];
+        
+        <%
+            for( int j = 0 ; j < g.getStrategies().size(); j++ ) {
+                Strategy s = g.getStrategies().get(j);
+                %>
+        data2.push({
+            index: <%=j%>,
+            name: "<%=s.getStrategyName() %>",
+            percentage: "<%=s.getStrategyWeight() * 100%>"
+        });
+                <%
+            }
+        %>
+        
+        goalGraph("#goalGraph<%=i%>", 140, data2);            
+    <%
+        }
+    %>
 
-        roundedProgressMultiple("#rounded_progress_multiple", 140);
-        roundedProgressMultiple("#rounded_progress_multiple2", 140);
-        roundedProgressMultiple("#rounded_progress_multiple3", 140);
         customerSatisfactionLine('#customerSatisfactionGraph', 255); // initialize chart
+
+        updateNotifications();
+
+        setInterval(function () {
+            updateNotifications();
+        }, 100);
     });
 </script>
 

@@ -23,7 +23,7 @@ public class Goal extends Model{
     private String goalStatus;
     private Timestamp time;
     
-    private ArrayList<Strategy> strategies;
+    private ArrayList<Strategy> strategies = new ArrayList<>();
 
     public int getGoalID() {
         return goalID;

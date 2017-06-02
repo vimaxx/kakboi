@@ -5,8 +5,11 @@
  */
 package Servlet;
 
+import Model.DBAdmin;
+import Model.Notification;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -30,17 +33,27 @@ public class GetNotificationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet GetNotificationServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet GetNotificationServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        
+        ArrayList<Notification> notifications = DBAdmin.getLastNotifications(6);
+        
+        try (PrintWriter pw = response.getWriter()) {
+            pw.print("{\"data\": [");
+            
+            String res = "";
+            for (int i = 0; i < notifications.size(); i++) {
+                Notification notif = notifications.get(i);
+                
+                if( !"".equals(res) ) {
+                    res += ", ";
+                }
+                
+                res += "{"
+                        + "\"id\": \"" + notif.getNotificationID() + "\", "
+                        + "\"icon\": \"" + notif.getNotificationIcon()+ "\", "
+                        + "\"content\": \"" + notif.getNotificationContent() + "\", "
+                        + "\"time\": \"" + notif.getFormattedTime() + "\"}";
+            }
+            pw.print(res + "]}");
         }
     }
 

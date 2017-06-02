@@ -21,19 +21,29 @@ import java.util.logging.Logger;
  * @author Deni Barasena
  */
 public class DBAdmin {
-
     static final String DB_URL = "jdbc:mysql://localhost:3306/kakboi";
     static final String DB_USER = "root";
-    static final String DB_PASS = ""; // Local machine DB Pass
-//    static final String DB_PASS = "uvUqdU9n"; // DENI GCP machine DB Pass
+//    static final String DB_PASS = ""; // Local machine DB Pass
+    static final String DB_PASS = "uvUqdU9n"; // DENI GCP machine DB Pass
 
-    private static final String LOGIN_USER = "SELECT * FROM `user` WHERE fullname = ? AND password = SHA1(?)";
-    private static final String ADD_USER = "INSERT INTO `user` (fullname, email, user_type, password) VALUES(?, ?, ?, ?)";
-    private static final String TRUNCATE_TABLE = "TRUNCATE TABLE ?";
+    private static final String LOGIN_USER
+            = "SELECT * FROM `user` "
+            + "WHERE fullname = ? "
+            + "AND password = SHA1(?)";
+    private static final String ADD_USER
+            = "INSERT INTO `user` "
+            + "(fullname, email, user_type, password) "
+            + "VALUES(?, ?, ?, ?)";
+    private static final String GET_NOTIFICATION
+            = "SELECT * FROM notification "
+            + "ORDER BY time "
+            + "DESC LIMIT ?";
 
     public static User login(String username, String password) {
         try {
-            return Query.create(LOGIN_USER, User.class).setString(username).setString(password).query();
+            return Query.create(LOGIN_USER, User.class)
+                    .setString(username)
+                    .setString(password).query();
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -49,11 +59,32 @@ public class DBAdmin {
                     .setString(user.getPassword())
                     .executeStatement();
         } catch (SQLException ex) {
-            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         return false;
     }
 
+    public static ArrayList<Notification> getLastNotifications(int limit) {
+        try {
+            return Query.create(GET_NOTIFICATION, Notification.class)
+                    .setInt(limit)
+                    .queryList();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return new ArrayList<>();
+    }
+
+    public static ArrayList<Branch> getAllBranches() {
+        try {
+            return Query.create("SELECT * FROM branch", Branch.class).queryList();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        return new ArrayList<>();
+    }
+
+    private static final String TRUNCATE_TABLE = "TRUNCATE TABLE ?";
     public static boolean clearDatabase() {
         String[] tableNames = {
             "user", "applicant", "branch", "branch_plan", "customer",
@@ -75,18 +106,28 @@ public class DBAdmin {
         return false;
     }
 
-    public static ArrayList<Branch> getAllBranches() {
+    public static ArrayList<Goal> getAllGoals() {
         try {
-            return Query.create("SELECT * FROM branch", Branch.class).queryList();
+            return Query.create("SELECT * FROM goal", Goal.class).queryList();
         } catch (SQLException ex) {
             Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }
         return new ArrayList<>();
     }
 
-    public static ArrayList<Goal> getAllGoals() {
+
+    public static ArrayList<Employee> getAllEmployeesByBranch(int branchID) {
         try {
-            return Query.create("SELECT * FROM goal", Goal.class).queryList();
+            return Query.create("SELECT * FROM employee WHERE branch_id = ?", Employee.class).setInt(branchID).queryList();
+        } catch (SQLException ex) {
+            Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return new ArrayList<>();
+    }
+
+    public static ArrayList<Strategy> getAllStrategies(int goalID) {
+        try {
+            return Query.create("SELECT * FROM strategy WHERE goal_id = ?", Strategy.class).setInt(goalID).queryList();
         } catch (SQLException ex) {
             Logger.getLogger(DBAdmin.class.getName()).log(Level.SEVERE, null, ex);
         }

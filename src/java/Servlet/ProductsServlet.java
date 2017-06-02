@@ -33,10 +33,10 @@ public class ProductsServlet extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         
         User loggedUser = (User) request.getSession().getAttribute("loggedUser");
-        if( loggedUser == null || !"manager".equalsIgnoreCase(loggedUser.getUserType())) {
-            response.sendRedirect("login");
-            return;
-        }
+//        if( loggedUser == null || !"manager".equalsIgnoreCase(loggedUser.getUserType())) {
+//            response.sendRedirect("login");
+//            return;
+//        }
         
         request.getRequestDispatcher("products.jsp").forward(request, response);
     }

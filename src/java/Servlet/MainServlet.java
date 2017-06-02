@@ -10,7 +10,6 @@ import Model.DBAdmin;
 import Model.Goal;
 import Model.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -45,6 +44,12 @@ public class MainServlet extends HttpServlet {
             ArrayList<Goal> goals = DBAdmin.getAllGoals();
             ArrayList<Branch> branches = DBAdmin.getAllBranches();
             
+            for (int i = 0; i < goals.size(); i++) {
+                Goal g = goals.get(i);
+                
+                g.setStrategies(DBAdmin.getAllStrategies(g.getGoalID()) );
+            }
+            
             request.setAttribute("goals", goals);
             request.setAttribute("branches", branches);
             
@@ -54,7 +59,7 @@ public class MainServlet extends HttpServlet {
             
             request.getRequestDispatcher("main.jsp").forward(request, response);
         } else if ("manager".equalsIgnoreCase(loggedUser.getUserType())) {
-            request.getRequestDispatcher("main.jsp").forward(request, response);
+            request.getRequestDispatcher("manager_main.jsp").forward(request, response);
         }
         
         

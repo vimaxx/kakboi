@@ -75,5 +75,7 @@ public class User extends Model{
         userID = rs.getInt("user_id");
         fullname = rs.getString("fullname");
         userType = rs.getString("user_type");
+        email = rs.getString("email");
     }
+    
 }

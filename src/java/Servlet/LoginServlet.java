@@ -36,8 +36,6 @@ public class LoginServlet extends HttpServlet {
         String username = request.getParameter("username");
         String password = request.getParameter("password");
         
-        System.out.println("Username " + username);
-        System.out.println("Password " + password);
         if( username != null && username.length() > 1 ) {
             if( password != null && password.length() > 1 ) {
                 User user = DBAdmin.login(username, password);

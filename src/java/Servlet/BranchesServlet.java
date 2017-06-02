@@ -42,6 +42,14 @@ public class BranchesServlet extends HttpServlet {
         }
         
         ArrayList<Branch> branches = DBAdmin.getAllBranches();
+        
+        for (int i = 0; i < branches.size(); i++) {
+            Branch b = branches.get(i);
+            
+            b.setEmployees(DBAdmin.getAllEmployeesByBranch(b.getBranchID()));
+            
+        }
+        
         request.setAttribute("branches", branches);
         
         request.getRequestDispatcher("branches.jsp").forward(request, response);
